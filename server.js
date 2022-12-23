@@ -3,6 +3,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
 
+const username = "gentij";
+const intervalTimeMillisec = 60000;
+
 dotenv.config();
 
 const app = express();
@@ -13,8 +16,6 @@ const GET_TOKEN_URL = process.env.TWTICH_GET_TOKEN_URL;
 const API_URL = process.env.TWITCH_API_URL;
 const CLIENT_ID = process.env.TWITCH_CLIENT_ID;
 const CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET;
-
-const username = "gentij";
 
 async function getAccessToken() {
     let data;
@@ -81,5 +82,5 @@ app.listen(() => {
         } catch (e) {
             console.error(e);
         }
-    }, 2000);
+    }, intervalTimeMillisec);
 });
