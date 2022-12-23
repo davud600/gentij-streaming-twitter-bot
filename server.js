@@ -72,10 +72,8 @@ app.listen(() => {
         console.log("hi");
 
         try {
-            const res = await isStreamerLive();
-            const { data } = res.json();
-
-            isGentijLive = data !== null;
+            const data = await isStreamerLive();
+            const isGentijLive = data !== null;
 
             if (isGentijLive) {
                 // Twitter api call to make tweet
@@ -83,5 +81,5 @@ app.listen(() => {
         } catch (e) {
             console.error(e);
         }
-    }, 60000);
+    }, 2000);
 });
