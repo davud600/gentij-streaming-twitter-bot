@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import fetch from "node-fetch";
+import Twit from "twit";
 
 const username = "gentij";
 const intervalTimeMillisec = 60 * 1000;
