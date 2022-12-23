@@ -4,13 +4,24 @@ import dotenv from "dotenv";
 import fetch from "node-fetch";
 
 const username = "gentij";
-const intervalTimeMillisec = 60000;
+const intervalTimeMillisec = 60 * 1000;
+const tweetStatus =
+    "Gentij is now streaming live on twitch, GO WATCH!   https://www.twitch.tv/gentij";
 
 dotenv.config();
 
 const app = express();
 
 app.use(cors());
+
+const T = new Twit({
+    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+    access_token: process.env.TWITTER_ACCESS_TOKEN_KEY,
+    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+    timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
+    strictSSL: true // optional - requires SSL certificates to be valid.
+});
 
 const GET_TOKEN_URL = process.env.TWTICH_GET_TOKEN_URL;
 const API_URL = process.env.TWITCH_API_URL;
@@ -57,8 +68,6 @@ async function isStreamerLive() {
             headers
         });
         data = await response.json();
-
-        console.log(data);
     } catch (e) {
         console.error(e);
     }
@@ -70,7 +79,7 @@ app.listen(() => {
     console.log(`Server is running at port: ${process.env.PORT || 5000}`);
 
     setInterval(async () => {
-        console.log("hi");
+        console.log("Interval called");
 
         try {
             const data = await isStreamerLive();
@@ -78,6 +87,20 @@ app.listen(() => {
 
             if (isGentijLive) {
                 // Twitter api call to make tweet
+                T.post(
+                    "statuses/update",
+                    { status: tweetStatus },
+                    function (e, data, res) {
+                        if (e) console.error(e);
+
+                        console.log("---- Twitter api log START ----");
+                        console.log("--- data ---");
+                        console.log(data);
+                        console.log("--- response ---");
+                        console.log(res);
+                        console.log("---- Twitter api log END ----");
+                    }
+                );
             }
         } catch (e) {
             console.error(e);
