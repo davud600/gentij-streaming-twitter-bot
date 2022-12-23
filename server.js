@@ -65,12 +65,23 @@ async function isStreamerLive() {
     return data?.data?.find(s => s.user_login === username.toLocaleLowerCase());
 }
 
-const isgentijlive = await isStreamerLive();
-
 app.listen(() => {
     console.log(`Server is running at port: ${process.env.PORT || 5000}`);
 
-    setInterval(() => {
+    setInterval(async () => {
         console.log("hi");
+
+        try {
+            const res = await isStreamerLive();
+            const { data } = res.json();
+
+            isGentijLive = data !== null;
+
+            if (isGentijLive) {
+                // Twitter api call to make tweet
+            }
+        } catch (e) {
+            console.error(e);
+        }
     }, 60000);
 });
