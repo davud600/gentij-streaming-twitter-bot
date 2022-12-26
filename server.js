@@ -8,7 +8,7 @@ const username = "realgafi";
 const intervalTimeMillisec = 10 * 1000;
 // const tweetStatus =
 //     "Gentij is now streaming live on twitch, GO WATCH!   https://www.twitch.tv/gentij";
-const tweetStatus = "testtt (when does it get better)";
+const tweetStatus = "testtsdklfjsdkljfsdkltt (when does it get better)";
 let wasLive;
 
 dotenv.config();
@@ -86,12 +86,11 @@ export function run() {
 
             if (isGentijLive && !wasLive) {
                 // Twitter api call to make tweet
+                const date = new Date();
                 T.post(
                     "statuses/update",
                     {
-                        status: `${tweetStatus} (${new Date().toLocaleDateString(
-                            "en-US"
-                        )})`
+                        status: `${tweetStatus} (${date.toISOString()})`
                     },
                     function (e, data, res) {
                         if (e) console.error(e);
@@ -115,8 +114,10 @@ export function run() {
     }, intervalTimeMillisec);
 }
 
-app.listen(() => {
-    console.log(`Server is running at port: ${process.env.PORT || 5000}`);
+run();
 
-    run();
-});
+// app.listen(() => {
+//     console.log(`Server is running at port: ${process.env.PORT || 5000}`);
+
+//     run();
+// });
