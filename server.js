@@ -6,9 +6,8 @@ import Twit from "twit";
 
 const username = "realgafi";
 const intervalTimeMillisec = 10 * 1000;
-// const tweetStatus =
-//     "Gentij is now streaming live on twitch, GO WATCH!   https://www.twitch.tv/gentij";
-const tweetStatus = "testtsdklfjsdkljfsdkltt (when does it get better)";
+const tweetStatus =
+    "Gentij is now streaming live on twitch, GO WATCH!  https://www.twitch.tv/gentij";
 let wasLive;
 
 dotenv.config();
@@ -114,10 +113,8 @@ export function run() {
     }, intervalTimeMillisec);
 }
 
-run();
+app.listen(() => {
+    console.log(`Server is running at port: ${process.env.PORT || 5000}`);
 
-// app.listen(() => {
-//     console.log(`Server is running at port: ${process.env.PORT || 5000}`);
-
-//     run();
-// });
+    run();
+});
