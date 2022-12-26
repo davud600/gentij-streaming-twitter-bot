@@ -20,7 +20,7 @@ const T = new Twit({
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
     access_token: process.env.TWITTER_ACCESS_TOKEN_KEY,
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-    timeout_ms: 60 * 1000, // optional HTTP request timeout to apply to all requests.
+    timeout_ms: intervalTimeMillisec, // optional HTTP request timeout to apply to all requests.
     strictSSL: true // optional - requires SSL certificates to be valid.
 });
 
@@ -75,6 +75,22 @@ async function isStreamerLive() {
 
     return data?.data?.find(s => s.user_login === username.toLocaleLowerCase());
 }
+
+// DEBUGGING
+// T.post(
+//     "statuses/update",
+//     { status: "gentij not live at the moment ;(" },
+//     function (e, data, res) {
+//         if (e) console.error(e);
+
+//         // console.log("---- Twitter api log START ----");
+//         // console.log("--- data ---");
+//         // console.log(data);
+//         // console.log("--- response ---");
+//         // console.log(res);
+//         // console.log("---- Twitter api log END ----");
+//     }
+// );
 
 app.listen(() => {
     console.log(`Server is running at port: ${process.env.PORT || 5000}`);
