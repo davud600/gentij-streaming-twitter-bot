@@ -5,7 +5,7 @@ import fetch from "node-fetch";
 import Twit from "twit";
 
 const username = "realgafi";
-const intervalTimeMillisec = 60 * 1000;
+const intervalTimeMillisec = 10 * 1000;
 // const tweetStatus =
 //     "Gentij is now streaming live on twitch, GO WATCH!   https://www.twitch.tv/gentij";
 const tweetStatus = "test (when does it get better)";
@@ -21,9 +21,7 @@ const T = new Twit({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
     consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
     access_token: process.env.TWITTER_ACCESS_TOKEN_KEY,
-    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
-    timeout_ms: intervalTimeMillisec, // optional HTTP request timeout to apply to all requests.
-    strictSSL: true // optional - requires SSL certificates to be valid.
+    access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
 const GET_TOKEN_URL = process.env.TWTICH_GET_TOKEN_URL;
@@ -78,9 +76,7 @@ async function isStreamerLive() {
     return data?.data?.find(s => s.user_login === username.toLocaleLowerCase());
 }
 
-app.listen(() => {
-    console.log(`Server is running at port: ${process.env.PORT || 5000}`);
-
+function run() {
     setInterval(async () => {
         console.log("Interval called");
 
@@ -92,16 +88,20 @@ app.listen(() => {
                 // Twitter api call to make tweet
                 T.post(
                     "statuses/update",
-                    { status: tweetStatus },
+                    {
+                        status: `${tweetStatus} (${new Date().toLocaleDateString(
+                            "en-US"
+                        )})`
+                    },
                     function (e, data, res) {
                         if (e) console.error(e);
 
-                        console.log("---- Twitter api log START ----");
-                        console.log("--- data ---");
-                        console.log(data);
-                        console.log("--- response ---");
-                        console.log(res);
-                        console.log("---- Twitter api log END ----");
+                        // console.log("---- Twitter api log START ----");
+                        // console.log("--- data ---");
+                        // console.log(data);
+                        // console.log("--- response ---");
+                        // console.log(res);
+                        // console.log("---- Twitter api log END ----");
                     }
                 );
 
@@ -113,4 +113,10 @@ app.listen(() => {
             console.error(e);
         }
     }, intervalTimeMillisec);
+}
+
+app.listen(() => {
+    console.log(`Server is running at port: ${process.env.PORT || 5000}`);
+
+    run();
 });
