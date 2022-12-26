@@ -5,7 +5,7 @@ import fetch from "node-fetch";
 import Twit from "twit";
 
 const username = "gentij";
-const intervalTimeMillisec = 60 * 1000;
+const intervalTimeMillisec = 1 * 1000;
 const tweetStatus =
     "Gentij is now streaming live on twitch, GO WATCH!   https://www.twitch.tv/gentij";
 
@@ -100,7 +100,7 @@ app.listen(() => {
 
         try {
             const data = await isStreamerLive();
-            const isGentijLive = data !== null;
+            const isGentijLive = data !== null && data !== undefined;
 
             if (isGentijLive) {
                 // Twitter api call to make tweet
