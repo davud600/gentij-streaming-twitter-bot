@@ -75,8 +75,10 @@ async function isStreamerLive() {
     return data?.data?.find(s => s.user_login === username.toLocaleLowerCase());
 }
 
-export function run() {
-    setInterval(async () => {
+async function run() {
+    while (true) {
+        await new Promise(resolve => setTimeout(resolve, intervalTimeMillisec));
+
         console.log("Interval called");
 
         try {
@@ -110,7 +112,43 @@ export function run() {
         } catch (e) {
             console.error(e);
         }
-    }, intervalTimeMillisec);
+    }
+
+    // setInterval(async () => {
+    //     console.log("Interval called");
+
+    //     try {
+    //         const data = await isStreamerLive();
+    //         const isGentijLive = data !== null && data !== undefined;
+
+    //         if (isGentijLive && !wasLive) {
+    //             // Twitter api call to make tweet
+    //             const date = new Date();
+    //             T.post(
+    //                 "statuses/update",
+    //                 {
+    //                     status: `${tweetStatus} (${date.toISOString()})`
+    //                 },
+    //                 function (e, data, res) {
+    //                     if (e) console.error(e);
+
+    //                     console.log("---- Twitter api log START ----");
+    //                     console.log("--- data ---");
+    //                     console.log(data);
+    //                     console.log("--- response ---");
+    //                     console.log(res);
+    //                     console.log("---- Twitter api log END ----");
+    //                 }
+    //             );
+
+    //             wasLive = true;
+    //         } else if (!isGentijLive && wasLive) {
+    //             wasLive = false;
+    //         }
+    //     } catch (e) {
+    //         console.error(e);
+    //     }
+    // }, intervalTimeMillisec);
 }
 
 app.listen(() => {
