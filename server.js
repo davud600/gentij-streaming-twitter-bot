@@ -8,7 +8,7 @@ const username = "realgafi";
 const intervalTimeMillisec = 10 * 1000;
 // const tweetStatus =
 //     "Gentij is now streaming live on twitch, GO WATCH!   https://www.twitch.tv/gentij";
-const tweetStatus = "test (when does it get better)";
+const tweetStatus = "testtt (when does it get better)";
 let wasLive;
 
 dotenv.config();
@@ -76,7 +76,7 @@ async function isStreamerLive() {
     return data?.data?.find(s => s.user_login === username.toLocaleLowerCase());
 }
 
-function run() {
+export function run() {
     setInterval(async () => {
         console.log("Interval called");
 
