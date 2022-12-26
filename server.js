@@ -77,21 +77,6 @@ async function isStreamerLive() {
     return data?.data?.find(s => s.user_login === username.toLocaleLowerCase());
 }
 
-T.post(
-    "statuses/update",
-    { status: "another test ooga booga sry, goth??" },
-    function (e, data, res) {
-        if (e) console.error(e);
-
-        console.log("---- Twitter api log START ----");
-        console.log("--- data ---");
-        console.log(data);
-        console.log("--- response ---");
-        console.log(res);
-        console.log("---- Twitter api log END ----");
-    }
-);
-
 app.listen(() => {
     console.log(`Server is running at port: ${process.env.PORT || 5000}`);
 
