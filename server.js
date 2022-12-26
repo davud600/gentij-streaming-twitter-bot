@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 import fetch from "node-fetch";
 import Twit from "twit";
 
-const username = "realgafi";
-const intervalTimeMillisec = 10 * 1000;
+const username = "gentij";
+const intervalTimeMillisec = 60 * 1000;
 const tweetStatus =
     "Gentij is now streaming live on twitch, GO WATCH!  https://www.twitch.tv/gentij";
 let wasLive;
@@ -94,12 +94,12 @@ export function run() {
                     function (e, data, res) {
                         if (e) console.error(e);
 
-                        // console.log("---- Twitter api log START ----");
-                        // console.log("--- data ---");
-                        // console.log(data);
-                        // console.log("--- response ---");
-                        // console.log(res);
-                        // console.log("---- Twitter api log END ----");
+                        console.log("---- Twitter api log START ----");
+                        console.log("--- data ---");
+                        console.log(data);
+                        console.log("--- response ---");
+                        console.log(res);
+                        console.log("---- Twitter api log END ----");
                     }
                 );
 
