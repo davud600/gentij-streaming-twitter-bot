@@ -8,6 +8,7 @@ const username = "gentij";
 const intervalTimeMillisec = 60 * 1000;
 const tweetStatus =
     "Gentij is now streaming live on twitch, GO WATCH!   https://www.twitch.tv/gentij";
+let wasLive;
 
 dotenv.config();
 
@@ -76,22 +77,6 @@ async function isStreamerLive() {
     return data?.data?.find(s => s.user_login === username.toLocaleLowerCase());
 }
 
-// DEBUGGING
-// T.post(
-//     "statuses/update",
-//     { status: "gentij not live at the moment ;(" },
-//     function (e, data, res) {
-//         if (e) console.error(e);
-
-//         // console.log("---- Twitter api log START ----");
-//         // console.log("--- data ---");
-//         // console.log(data);
-//         // console.log("--- response ---");
-//         // console.log(res);
-//         // console.log("---- Twitter api log END ----");
-//     }
-// );
-
 app.listen(() => {
     console.log(`Server is running at port: ${process.env.PORT || 5000}`);
 
@@ -102,7 +87,7 @@ app.listen(() => {
             const data = await isStreamerLive();
             const isGentijLive = data !== null && data !== undefined;
 
-            if (isGentijLive) {
+            if (isGentijLive && !wasLive) {
                 // Twitter api call to make tweet
                 T.post(
                     "statuses/update",
@@ -118,6 +103,10 @@ app.listen(() => {
                         console.log("---- Twitter api log END ----");
                     }
                 );
+
+                wasLive = true;
+            } else if (!isGentijLive && wasLive) {
+                wasLive = false;
             }
         } catch (e) {
             console.error(e);
