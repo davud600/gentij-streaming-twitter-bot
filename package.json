@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "\"# gentij-streaming-twitter-bot\"",
     "type": "module",
-    "main": "server.js",
+    "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -19,9 +19,11 @@
     },
     "homepage": "https://github.com/davud600/gentij-streaming-twitter-bot#readme",
     "dependencies": {
+        "@netlify/functions": "^1.3.0",
         "cors": "^2.8.5",
         "dotenv": "^16.0.3",
-        "express": "^4.18.2",
+        "netlify": "^13.1.0",
+        "netlify-cli": "^12.5.0",
         "node-fetch": "^3.3.0",
         "twit": "^2.2.11"
     }
