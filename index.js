@@ -1,3 +1,7 @@
+import { schedule } from "@netlify/functions";
+import Twit from "twit";
+import fetch from "node-fetch";
+
 const username = "gentij";
 // const intervalTimeMillisec = 60 * 1000;
 const tweetStatus =
@@ -63,7 +67,7 @@ async function isStreamerLive() {
     return data?.data?.find(s => s.user_login === username.toLocaleLowerCase());
 }
 
-export const myHandler = async () => {
+export const handler = schedule("* * * * *", async event => {
     console.log("Interval called");
 
     try {
@@ -101,8 +105,4 @@ export const myHandler = async () => {
     return {
         statusCode: 200
     };
-};
-
-const handler = schedule("* * * * *", myHandler);
-
-export { handler };
+});
