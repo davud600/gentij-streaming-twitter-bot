@@ -121,10 +121,9 @@ export const handler = schedule("* * * * *", async event => {
             T.post(
                 "statuses/update",
                 {
-                    status: `${tweetStatus}, ${quirkyText}. (${date.substr(
-                        0,
-                        25
-                    )})`
+                    status: `${tweetStatus}, ${quirkyText}. (${date
+                        .toString()
+                        .substring(0, 25)})`
                 },
                 function (e, data, res) {
                     if (e) console.error(e);
