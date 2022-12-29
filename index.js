@@ -2,10 +2,23 @@ import { schedule } from "@netlify/functions";
 import Twit from "twit";
 import fetch from "node-fetch";
 
-const username = "gentij";
-// const intervalTimeMillisec = 60 * 1000;
+const earlyStreamTextOptions = [
+    "early stream? who is this guy",
+    "w sleep schedule",
+    "early stream :D"
+];
+const lateStreamTextOptions = [
+    "rip sleep schedule",
+    "grinding no sleep",
+    "late stream :D"
+];
+// const normalStreamTextOptions = [
+//     ""
+// ]
 const tweetStatus =
-    "Gentij is now streaming live on twitch, GO WATCH!  https://www.twitch.tv/gentij";
+    "Gentij is now Streaming Live on Twitch, go watch! https://www.twitch.tv/gentij";
+const username = "gentij";
+
 let wasLive;
 
 const T = new Twit({
@@ -19,6 +32,23 @@ const GET_TOKEN_URL = process.env.TWTICH_GET_TOKEN_URL;
 const API_URL = process.env.TWITCH_API_URL;
 const CLIENT_ID = process.env.TWITCH_CLIENT_ID;
 const CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET;
+
+function getQuirkyText(textOptions) {
+    let text = textOptions[0];
+    let randomNums = [];
+
+    for (let i = 0; i < textOptions.length; i++) {
+        randomNums[i] = (Math.random() * 10).round(); // random num 0-9
+
+        if (i == 0 || randomNums[i - 1] > randomNums[i]) {
+            continue;
+        }
+
+        text = textOptions[i];
+    }
+
+    return text;
+}
 
 async function getAccessToken() {
     let data;
@@ -77,10 +107,24 @@ export const handler = schedule("* * * * *", async event => {
         if (isGentijLive && !wasLive) {
             // Twitter api call to make tweet
             const date = new Date();
+            let quirkyText = "";
+
+            if (date.getHours() >= 22) {
+                quirkyText = getQuirkyText(lateStreamTextOptions);
+            } else if (date.getHours() <= 19) {
+                quirkyText = getQuirkyText(earlyStreamTextOptions);
+            }
+            // else {
+            //     quirkyText = getQuirkyText(normalStreamTextOptions);
+            // }
+
             T.post(
                 "statuses/update",
                 {
-                    status: `${tweetStatus} (${date.toISOString()})`
+                    status: `${tweetStatus}, ${quirkyText}. (${date.substr(
+                        0,
+                        25
+                    )})`
                 },
                 function (e, data, res) {
                     if (e) console.error(e);
