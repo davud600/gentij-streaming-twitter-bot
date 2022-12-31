@@ -16,9 +16,9 @@ const lateStreamTextOptions = [
 ];
 const normalStreamTextOptions = [];
 const tweetStatus = "Gentij is now Streaming Live on Twitch, go watch!,";
-const username = "gentij";
+const username = "akili69";
 const channelLink = `https://www.twitch.tv/${username}`;
-const intervalTimeMillisec = 60 * 1000;
+const intervalTimeMillisec = 10 * 1000;
 
 let wasLive;
 
