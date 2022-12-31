@@ -13,9 +13,10 @@ const lateStreamTextOptions = [
     "late stream :D."
 ];
 const normalStreamTextOptions = [];
-const tweetStatus =
-    "Gentij is now Streaming Live on Twitch, go watch! https://www.twitch.tv/gentij";
-const username = "gentij";
+// const tweetStatus =
+//     "Gentij is now Streaming Live on Twitch, go watch! https://www.twitch.tv/gentij";
+const tweetStatus = "gentij is not streaming this is just a test,";
+const username = "xqc";
 
 let wasLive;
 
