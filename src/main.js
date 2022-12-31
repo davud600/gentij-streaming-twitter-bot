@@ -15,10 +15,10 @@ const lateStreamTextOptions = [
     "late stream :D."
 ];
 const normalStreamTextOptions = [];
-const tweetStatus =
-    "Gentij is now Streaming Live on Twitch, go watch! https://www.twitch.tv/gentij";
-const username = "akili69";
-const intervalTimeMillisec = 10 * 1000;
+const tweetStatus = "Gentij is now Streaming Live on Twitch, go watch!,";
+const username = "gentij";
+const channelLink = `https://www.twitch.tv/${username}`;
+const intervalTimeMillisec = 60 * 1000;
 
 let wasLive;
 
@@ -122,9 +122,10 @@ async function run() {
                 T.post(
                     "statuses/update",
                     {
-                        status: `${tweetStatus}, ${quirkyText} (${date
+                        status: `${tweetStatus} ${quirkyText} (${date
                             .toString()
-                            .substring(0, 25)})`
+                            .substring(0, 25)})
+                            ${channelLink}`
                     },
                     (e, data, res) => {
                         if (e) console.error(e);

@@ -23,9 +23,5 @@
         "dotenv": "^16.0.3",
         "node-fetch": "^3.3.0",
         "twit": "^2.2.11"
-    },
-    "devDependencies": {
-        "webpack": "^5.75.0",
-        "webpack-cli": "^5.0.1"
     }
 }
