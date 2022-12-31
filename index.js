@@ -1,6 +1,8 @@
-// import { schedule } from "@netlify/functions";
 import Twit from "twit";
 import fetch from "node-fetch";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const earlyStreamTextOptions = [
     "early stream? who is this guy.",
@@ -13,10 +15,9 @@ const lateStreamTextOptions = [
     "late stream :D."
 ];
 const normalStreamTextOptions = [];
-// const tweetStatus =
-//     "Gentij is now Streaming Live on Twitch, go watch! https://www.twitch.tv/gentij";
-const tweetStatus = "gentij is not streaming this is just a test,";
-const username = "xqc";
+const tweetStatus =
+    "Gentij is now Streaming Live on Twitch, go watch! https://www.twitch.tv/gentij";
+const username = "gentij";
 const intervalTimeMillisec = 60 * 1000;
 
 let wasLive;
@@ -38,7 +39,7 @@ function getQuirkyText(textOptions) {
     let randomNums = [];
 
     for (let i = 0; i < textOptions.length; i++) {
-        randomNums[i] = (Math.random() * 10).round(); // random num 0-9
+        randomNums[i] = Math.round(Math.random() * 10); // random num 0-9
 
         if (i == 0 || randomNums[i - 1] > randomNums[i]) {
             continue;
