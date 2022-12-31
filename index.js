@@ -17,8 +17,8 @@ const lateStreamTextOptions = [
 const normalStreamTextOptions = [];
 const tweetStatus =
     "Gentij is now Streaming Live on Twitch, go watch! https://www.twitch.tv/gentij";
-const username = "gentij";
-const intervalTimeMillisec = 60 * 1000;
+const username = "akili69";
+const intervalTimeMillisec = 10 * 1000;
 
 let wasLive;
 
@@ -98,7 +98,6 @@ async function isStreamerLive() {
     return data?.data?.find(s => s.user_login === username.toLocaleLowerCase());
 }
 
-// export const handler = schedule("* * * * *", async event => {
 async function run() {
     console.log("Interval called");
 
@@ -150,7 +149,6 @@ async function run() {
         statusCode: 200
     };
 }
-// });
 
 while (true) {
     await new Promise(resolve => setTimeout(resolve, intervalTimeMillisec));
