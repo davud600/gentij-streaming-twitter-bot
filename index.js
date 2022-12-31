@@ -3,18 +3,16 @@ import Twit from "twit";
 import fetch from "node-fetch";
 
 const earlyStreamTextOptions = [
-    "early stream? who is this guy",
-    "w sleep schedule",
-    "early stream :D"
+    "early stream? who is this guy.",
+    "w sleep schedule.",
+    "early stream :D."
 ];
 const lateStreamTextOptions = [
-    "rip sleep schedule",
-    "grinding no sleep",
-    "late stream :D"
+    "rip sleep schedule.",
+    "grinding no sleep.",
+    "late stream :D."
 ];
-// const normalStreamTextOptions = [
-//     ""
-// ]
+const normalStreamTextOptions = [];
 const tweetStatus =
     "Gentij is now Streaming Live on Twitch, go watch! https://www.twitch.tv/gentij";
 const username = "gentij";
@@ -113,19 +111,18 @@ export const handler = schedule("* * * * *", async event => {
                 quirkyText = getQuirkyText(lateStreamTextOptions);
             } else if (date.getHours() <= 19) {
                 quirkyText = getQuirkyText(earlyStreamTextOptions);
+            } else {
+                quirkyText = getQuirkyText(normalStreamTextOptions);
             }
-            // else {
-            //     quirkyText = getQuirkyText(normalStreamTextOptions);
-            // }
 
             T.post(
                 "statuses/update",
                 {
-                    status: `${tweetStatus}, ${quirkyText}. (${date
+                    status: `${tweetStatus}, ${quirkyText} (${date
                         .toString()
                         .substring(0, 25)})`
                 },
-                function (e, data, res) {
+                (e, data, res) => {
                     if (e) console.error(e);
 
                     console.log("---- Twitter api log START ----");
