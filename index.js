@@ -1,4 +1,4 @@
-import { schedule } from "@netlify/functions";
+// import { schedule } from "@netlify/functions";
 import Twit from "twit";
 import fetch from "node-fetch";
 
