@@ -17,6 +17,7 @@ const normalStreamTextOptions = [];
 //     "Gentij is now Streaming Live on Twitch, go watch! https://www.twitch.tv/gentij";
 const tweetStatus = "gentij is not streaming this is just a test,";
 const username = "xqc";
+const intervalTimeMillisec = 60 * 1000;
 
 let wasLive;
 
