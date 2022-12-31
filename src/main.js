@@ -5,20 +5,20 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const earlyStreamTextOptions = [
-    "early stream? who is this guy.",
-    "w sleep schedule.",
-    "early stream :D."
+    "Early stream? who is this guy.",
+    "W sleep schedule.",
+    "Early stream :D."
 ];
 const lateStreamTextOptions = [
-    "rip sleep schedule.",
-    "grinding no sleep.",
-    "late stream :D."
+    "Rip sleep schedule.",
+    "Grinding no sleep.",
+    "Late stream :D."
 ];
 const normalStreamTextOptions = [];
-const tweetStatus = "Gentij is now Streaming Live on Twitch, go watch!,";
-const username = "akili69";
+const tweetStatus = "Gentij is now Streaming Live on Twitch, go watch!";
+const username = "gentij";
 const channelLink = `https://www.twitch.tv/${username}`;
-const intervalTimeMillisec = 10 * 1000;
+const intervalTimeMillisec = 60 * 1000;
 
 let wasLive;
 
