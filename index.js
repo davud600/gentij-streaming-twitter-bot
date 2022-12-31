@@ -99,59 +99,55 @@ async function isStreamerLive() {
 }
 
 async function run() {
-    console.log("Interval called");
+    while (true) {
+        console.log("Interval called");
 
-    try {
-        const data = await isStreamerLive();
-        const isGentijLive = data !== null && data !== undefined;
+        try {
+            const data = await isStreamerLive();
+            const isGentijLive = data !== null && data !== undefined;
 
-        if (isGentijLive && !wasLive) {
-            // Twitter api call to make tweet
-            const date = new Date();
-            let quirkyText = "";
+            if (isGentijLive && !wasLive) {
+                // Twitter api call to make tweet
+                const date = new Date();
+                let quirkyText = "";
 
-            if (date.getHours() >= 22) {
-                quirkyText = getQuirkyText(lateStreamTextOptions);
-            } else if (date.getHours() <= 19) {
-                quirkyText = getQuirkyText(earlyStreamTextOptions);
-            } else {
-                quirkyText = getQuirkyText(normalStreamTextOptions);
-            }
-
-            T.post(
-                "statuses/update",
-                {
-                    status: `${tweetStatus}, ${quirkyText} (${date
-                        .toString()
-                        .substring(0, 25)})`
-                },
-                (e, data, res) => {
-                    if (e) console.error(e);
-
-                    console.log("---- Twitter api log START ----");
-                    console.log("--- data ---");
-                    console.log(data);
-                    console.log("--- response ---");
-                    console.log(res);
-                    console.log("---- Twitter api log END ----");
+                if (date.getHours() >= 22) {
+                    quirkyText = getQuirkyText(lateStreamTextOptions);
+                } else if (date.getHours() <= 19) {
+                    quirkyText = getQuirkyText(earlyStreamTextOptions);
+                } else {
+                    quirkyText = getQuirkyText(normalStreamTextOptions);
                 }
-            );
 
-            wasLive = true;
-        } else if (!isGentijLive && wasLive) {
-            wasLive = false;
+                T.post(
+                    "statuses/update",
+                    {
+                        status: `${tweetStatus}, ${quirkyText} (${date
+                            .toString()
+                            .substring(0, 25)})`
+                    },
+                    (e, data, res) => {
+                        if (e) console.error(e);
+
+                        console.log("---- Twitter api log START ----");
+                        console.log("--- data ---");
+                        console.log(data);
+                        console.log("--- response ---");
+                        console.log(res);
+                        console.log("---- Twitter api log END ----");
+                    }
+                );
+
+                wasLive = true;
+            } else if (!isGentijLive && wasLive) {
+                wasLive = false;
+            }
+        } catch (e) {
+            console.error(e);
         }
-    } catch (e) {
-        console.error(e);
+
+        await new Promise(resolve => setTimeout(resolve, intervalTimeMillisec));
     }
-
-    return {
-        statusCode: 200
-    };
 }
 
-while (true) {
-    await new Promise(resolve => setTimeout(resolve, intervalTimeMillisec));
-
-    run();
-}
+run();
