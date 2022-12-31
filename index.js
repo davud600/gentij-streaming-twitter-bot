@@ -96,7 +96,8 @@ async function isStreamerLive() {
     return data?.data?.find(s => s.user_login === username.toLocaleLowerCase());
 }
 
-export const handler = schedule("* * * * *", async event => {
+// export const handler = schedule("* * * * *", async event => {
+async function run() {
     console.log("Interval called");
 
     try {
@@ -146,4 +147,11 @@ export const handler = schedule("* * * * *", async event => {
     return {
         statusCode: 200
     };
-});
+}
+// });
+
+while (true) {
+    await new Promise(resolve => setTimeout(resolve, intervalTimeMillisec));
+
+    run();
+}
