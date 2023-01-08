@@ -14,13 +14,15 @@ const lateStreamTextOptions = [
     "Grinding no sleep.",
     "Late stream :D."
 ];
-const normalStreamTextOptions = [];
+const normalStreamTextOptions = [""];
 const tweetStatus = "Gentij is now Streaming Live on Twitch, go watch!";
 const username = "gentij";
 const channelLink = `https://www.twitch.tv/${username}`;
 const intervalTimeMillisec = 60 * 1000;
 
 let wasLive;
+let isLive;
+let amountOfhoursLive = 0;
 
 const T = new Twit({
     consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -104,9 +106,9 @@ async function run() {
 
         try {
             const data = await isStreamerLive();
-            const isGentijLive = data !== null && data !== undefined;
+            isLive = data !== null && data !== undefined;
 
-            if (isGentijLive && !wasLive) {
+            if (isLive && !wasLive) {
                 // Twitter api call to make tweet
                 const date = new Date();
                 let quirkyText = "";
@@ -140,7 +142,31 @@ async function run() {
                 );
 
                 wasLive = true;
-            } else if (!isGentijLive && wasLive) {
+            } else if (isLive && wasLive) {
+                // Tweet every hour gentij is live
+                // const date = new Date();
+                // if (date.getHours() < 1) return;
+                // amountOfhoursLive++;
+                // const hourText = amountOfhoursLive > 1 ? "hours" : "hour";
+                // T.post(
+                //     "statuses/update",
+                //     {
+                //         status: `Gentij has been Live Streaming for ${amountOfhoursLive} ${hourText}. (${date
+                //             .toString()
+                //             .substring(0, 25)})
+                //             ${channelLink}`
+                //     },
+                //     (e, data, res) => {
+                //         if (e) console.error(e);
+                //         console.log("---- Twitter api log START ----");
+                //         console.log("--- data ---");
+                //         console.log(data);
+                //         console.log("--- response ---");
+                //         console.log(res);
+                //         console.log("---- Twitter api log END ----");
+                //     }
+                // );
+            } else if (!isLive && wasLive) {
                 wasLive = false;
             }
         } catch (e) {
