@@ -1,7 +1,7 @@
 {
-    "name": "gentij-streaming-twitter-bot",
+    "name": "streamer-twitter-bot",
     "version": "1.0.0",
-    "description": "\"# gentij-streaming-twitter-bot\"",
+    "description": "\"# streamer-twitter-bot\"",
     "type": "module",
     "main": "index.js",
     "scripts": {
@@ -10,18 +10,23 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/davud600/gentij-streaming-twitter-bot.git"
+        "url": "git+https://github.com/davud600/streamer-twitter-bot.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/davud600/gentij-streaming-twitter-bot/issues"
+        "url": "https://github.com/davud600/streamer-twitter-bot/issues"
     },
-    "homepage": "https://github.com/davud600/gentij-streaming-twitter-bot#readme",
+    "homepage": "https://github.com/davud600/streamer-twitter-bot#readme",
     "dependencies": {
         "dotenv": "^16.0.3",
         "node-fetch": "^3.3.0",
         "twit": "^2.2.11"
+    },
+    "devDependencies": {
+        "@types/node": "^18.15.11",
+        "@types/twit": "^2.2.31",
+        "typescript": "^5.0.4"
     }
 }

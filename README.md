@@ -1,1 +1,1 @@
-"# gentij-streaming-twitter-bot" 
+"# Streamer Twitter Bot Package cc:"
